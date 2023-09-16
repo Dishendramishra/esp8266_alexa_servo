@@ -40,7 +40,6 @@ void setup()
   servo_mtr.write(90);
   
   Serial.begin(115200);
-
   // Initialise wifi connection
   wifiConnected = connectWifi();
   
@@ -53,7 +52,7 @@ void setup()
   } else
   {
     while (1) {
-      Serial.println("Cannot connect to WiFi. Restarting ESP");
+      Serial.println("Cannot connect to WiFi. Please check data and reset the ESP.");
       delay(2500);
       ESP.restart();
     }
@@ -64,7 +63,35 @@ void loop()
 {
    espalexa.loop();
    delay(1);
+
+   if(delayFlag){
+    Serial.print("Waiting");
+    while(millis() < time_now + period){
+        //wait approx. [period] ms
+        Serial.print(".");
+    }
+    Serial.println(".");
+    servo_mtr.write(90);
+    delayFlag = false;
+  }
 }
+
+//our callback functions
+void firstLightChanged(uint8_t brightness) {
+    Serial.print("Device 1 changed to ");
+    
+    //do what you need to do here
+
+    //EXAMPLE
+    if (brightness) {
+      Serial.print("ON, brightness ");
+      Serial.println(brightness);
+    }
+    else  {
+      Serial.println("OFF");
+    }
+}
+
 
 //our callback functions
 void servoChanged(uint8_t brightness)
