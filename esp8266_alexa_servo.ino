@@ -19,10 +19,10 @@ void servoChanged(uint8_t brightness);
 
 // Change this!!
 const char* ssid = SSID;
-const char* password = PASSWD;
+const char* password = PASSWORD;
 
 boolean wifiConnected = false;
-String Window_AC = "Window AC";
+String Window_AC = "AC";
 
 // Vars for maing a delay
 // ========================
